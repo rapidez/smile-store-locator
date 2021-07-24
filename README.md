@@ -21,6 +21,11 @@ yarn add gmap-vue -D
 composer require rapidez/smile-store-locator
 ```
 
+Add to your `resources/js/app.js`
+```
+require('Vendor/rapidez/smile-store-locator/resources/js/maps.js');
+```
+
 After that go to the configured url, default: `/stores`
 
 ## Views
