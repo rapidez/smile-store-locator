@@ -4,8 +4,6 @@ namespace Rapidez\SmileStoreLocator\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Rapidez\Core\Models\Model;
 

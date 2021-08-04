@@ -14,8 +14,8 @@ class Retailer extends Model
     protected $primaryKey = 'address_id';
 
     protected $casts = [
-        'latitude' => 'float',
-        'longitude' => 'float',
+        'latitude'   => 'float',
+        'longitude'  => 'float',
         'facilities' => 'object',
     ];
 
@@ -79,6 +79,6 @@ class Retailer extends Model
             $values[$item->attribute_code] = $item->value;
         }
 
-        return $this->values = (object)$values;
+        return $this->values = (object) $values;
     }
 }
