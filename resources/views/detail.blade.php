@@ -34,16 +34,7 @@
 
                 <div class="border rounded bg-gray-50 p-5 mb-5">
                     <strong>@lang('Opening hours')</strong><br>
-                    <?php
-                    $times = $retailer
-                        ->times
-                        ->filter(fn ($time) => $time->attribute_code == 'opening_hours')
-                        ->keyBy('day_of_week')
-                        ->toArray();
-                    while(key($times) != Carbon\Carbon::now()->dayOfWeek) next($times);
-                    ?>
-                    @for($i = 0; $i < 7; $i++)
-                        @php $time = current($times) @endphp
+                    @foreach($retailer->times->filter(fn ($time) => $time->attribute_code == 'opening_hours') as $time)
                         <div class="flex">
                             <div class="w-2/3">
                                 {{ ucfirst(Carbon\Carbon::create(Carbon\Carbon::getDays()[$time['day_of_week']])->dayName) }}
@@ -53,8 +44,7 @@
                                 {{ Carbon\Carbon::parse($time['end_time'])->format('H:i') }}
                             </div>
                         </div>
-                        <?php current($times)['day_of_week'] == 6 ? reset($times) : next($times) ?>
-                    @endfor
+                    @endforeach
 
                     @if(($specialTimes = $retailer
                         ->times

@@ -33,7 +33,13 @@ class Times extends Model
                 $builder->orderBy('date');
             }
 
-            $builder->orderBy('day_of_week');
+            $days = range(0, 6);
+            $sortedDays = array_merge(
+                array_slice($days, Carbon::now()->dayOfWeek),
+                array_slice($days, 0, Carbon::now()->dayOfWeek)
+            );
+
+            $builder->orderByRaw('FIELD(day_of_week, '.implode(',', $sortedDays).')');
         });
     }
 }

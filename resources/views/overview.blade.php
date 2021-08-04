@@ -72,7 +72,29 @@
                         </div>
                         <div class="sm:w-1/3 mb-3">
                             <strong class="block mb-3">@lang('Opening hours')</strong>
-                            {{-- @{{ selectedLocation.times }} --}}
+                            <div class="flex" v-for="time in selectedLocation.times.filter((time) => time.attribute_code == 'opening_hours')">
+                                <div class="w-1/2">
+                                    @{{ config.days[time.day_of_week] }}
+                                </div>
+                                <div class="w-1/2">
+                                    @{{ time.start_time.substring(11, 16) }} -
+                                    @{{ time.end_time.substring(11, 16) }}
+                                </div>
+                            </div>
+
+                            <div v-if="(specialHours = selectedLocation.times.filter((time) => time.attribute_code == 'special_opening_hours')).length">
+                                <strong class="block my-3">@lang('Special opening hours')</strong>
+                                <div class="flex" v-for="time in specialHours">
+                                    <div class="w-1/2">
+                                        @{{ time.date.substring(8, 10) }}-@{{ time.date.substring(5, 7) }}
+                                        @{{ time.description }}
+                                    </div>
+                                    <div class="w-1/2">
+                                        @{{ time.start_time.substring(11, 16) }} -
+                                        @{{ time.end_time.substring(11, 16) }}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
