@@ -89,6 +89,7 @@ class Retailer extends Model
             return $time->attribute_code == 'special_opening_hours' && $time->date->toDateString() == today()->toDateString();
         })) {
             $date = Carbon::parse($specialOpeningHour->end_time)->setDateFrom(today());
+
             return $date->isFuture() ? $date->format('H:i') : false;
         }
 
@@ -96,6 +97,7 @@ class Retailer extends Model
             return $time->attribute_code == 'opening_hours' && $time->day_of_week == today()->dayOfWeek;
         })) {
             $date = Carbon::parse($openingHour->end_time)->setDateFrom(today());
+
             return $date->isFuture() ? $date->format('H:i') : false;
         }
 
