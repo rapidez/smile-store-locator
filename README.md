@@ -35,10 +35,6 @@ If you need to change the views you can publish them with:
 php artisan vendor:publish --provider="Rapidez\SmileStoreLocator\SmileStoreLocatorServiceProvider" --tag=views
 ```
 
-## Todo
-
-- Show when a shop is open
-
 ## License
 
 GNU General Public License v3. Please see [License File](LICENSE) for more information.

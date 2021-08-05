@@ -34,12 +34,30 @@
                         }"
                         v-on:click.prevent="selectLocation(retailer.address_id)"
                     >
-                        @{{ retailer.street }} - @{{ retailer.city }}
+                        <div>@{{ retailer.street }} - @{{ retailer.city }}</div>
+                        <div class="text-sm">
+                            <div v-if="closing_time = retailer.closing_time">
+                                <span class="text-green-600">@lang('Open')</span>,
+                                <span class="text-gray-600">@lang('closing at') @{{ closing_time }}</span>
+                            </div>
+                            <div class="text-red-600" v-else>
+                                @lang('Closed')
+                            </div>
+                        </div>
                     </a>
                 </div>
                 <div class="md:w-2/3 relative">
                     <div v-if="selectedLocation" class="absolute bg-white p-3 rounded shadow z-10 top-2 left-2">
-                        <div class="mb-5">@{{ selectedLocation.street }} - @{{ selectedLocation.city }}</div>
+                        <div>@{{ selectedLocation.street }} - @{{ selectedLocation.city }}</div>
+                        <div class="text-sm mb-5">
+                            <div v-if="closing_time = selectedLocation.closing_time">
+                                <span class="text-green-600">@lang('Open')</span>,
+                                <span class="text-gray-600">@lang('closing at') @{{ closing_time }}</span>
+                            </div>
+                            <div class="text-red-600" v-else>
+                                @lang('Closed')
+                            </div>
+                        </div>
                         <a
                             :href="'{{ Rapidez::config('store_locator/seo/base_url', 'stores') }}/' + selectedLocation.url_key"
                             class="flex items-center font-bold underline"
@@ -79,13 +97,18 @@
                         </div>
                         <div class="sm:w-1/3 mb-3">
                             <strong class="block mb-3">@lang('Opening hours')</strong>
-                            <div class="flex" v-for="time in selectedLocation.times.filter((time) => time.attribute_code == 'opening_hours')">
+                            <div class="flex" v-for="dayOfWeek in config.days_in_week_sorted">
                                 <div class="w-1/2">
-                                    @{{ config.days[time.day_of_week] }}
+                                    @{{ config.day_names[dayOfWeek] }}
                                 </div>
                                 <div class="w-1/2">
-                                    @{{ time.start_time.substring(11, 16) }} -
-                                    @{{ time.end_time.substring(11, 16) }}
+                                    <div v-if="time = selectedLocation.times.find((time) => time.attribute_code == 'opening_hours' && time.day_of_week == dayOfWeek)">
+                                        @{{ time.start_time.substring(11, 16) }} -
+                                        @{{ time.end_time.substring(11, 16) }}
+                                    </div>
+                                    <div v-else>
+                                        @lang('Closed')
+                                    </div>
                                 </div>
                             </div>
 

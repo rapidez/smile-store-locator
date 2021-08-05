@@ -2,6 +2,7 @@
 
 namespace Rapidez\SmileStoreLocator\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -80,5 +81,24 @@ class Retailer extends Model
         }
 
         return $this->values = (object) $values;
+    }
+
+    public function getClosingTimeAttribute()
+    {
+        if ($specialOpeningHour = $this->times->first(function ($time) {
+            return $time->attribute_code == 'special_opening_hours' && $time->date->toDateString() == today()->toDateString();
+        })) {
+            $date = Carbon::parse($specialOpeningHour->end_time)->setDateFrom(today());
+            return $date->isFuture() ? $date->format('H:i') : false;
+        }
+
+        if ($openingHour = $this->times->first(function ($time) {
+            return $time->attribute_code == 'opening_hours' && $time->day_of_week == today()->dayOfWeek;
+        })) {
+            $date = Carbon::parse($openingHour->end_time)->setDateFrom(today());
+            return $date->isFuture() ? $date->format('H:i') : false;
+        }
+
+        return false;
     }
 }

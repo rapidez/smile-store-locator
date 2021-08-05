@@ -19,7 +19,14 @@
                     <strong>{{ $retailer->city }}</strong><br>
                     {{ $retailer->street }}<br>
                     {{ $retailer->postcode }}<br>
-                    {{ $retailer->values->contact_phone }}
+                    {{ $retailer->values->contact_phone }}<br>
+                    <br>
+                    @if($closingTime = $retailer->closing_time)
+                        <span class="text-green-600">@lang('Open')</span>,
+                        <span class="text-gray-600">@lang('closing at') {{ $closingTime }}</span>
+                    @else
+                        <span class="text-red-600">@lang('Closed')</span>
+                    @endif
                 </div>
 
                 @if($retailer->facilities)
@@ -34,14 +41,23 @@
 
                 <div class="border rounded bg-gray-50 p-5 mb-5">
                     <strong>@lang('Opening hours')</strong><br>
-                    @foreach($retailer->times->filter(fn ($time) => $time->attribute_code == 'opening_hours') as $time)
+                    @foreach(array_merge(
+                        array_slice(range(0, 6), today()->dayOfWeek),
+                        array_slice(range(0, 6), 0, today()->dayOfWeek)
+                    ) as $dayOfWeek)
                         <div class="flex">
                             <div class="w-2/3">
-                                {{ ucfirst(Carbon\Carbon::create(Carbon\Carbon::getDays()[$time['day_of_week']])->dayName) }}
+                                {{ ucfirst(Carbon\Carbon::create(Carbon\Carbon::getDays()[$dayOfWeek])->dayName) }}
                             </div>
                             <div class="w-1/3">
-                                {{ Carbon\Carbon::parse($time['start_time'])->format('H:i') }} -
-                                {{ Carbon\Carbon::parse($time['end_time'])->format('H:i') }}
+                                @if($time = $retailer->times->first(function ($time) use ($dayOfWeek) {
+                                    return $time->attribute_code == 'opening_hours' && $time->day_of_week == $dayOfWeek;
+                                }))
+                                    {{ Carbon\Carbon::parse($time['start_time'])->format('H:i') }} -
+                                    {{ Carbon\Carbon::parse($time['end_time'])->format('H:i') }}
+                                @else
+                                    @lang('Closed')
+                                @endif
                             </div>
                         </div>
                     @endforeach
