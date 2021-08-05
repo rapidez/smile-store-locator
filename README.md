@@ -37,8 +37,6 @@ php artisan vendor:publish --provider="Rapidez\SmileStoreLocator\SmileStoreLocat
 
 ## Todo
 
-- Implement the map search
-- Opening hours on the shop overview
 - Show when a shop is open
 
 ## License

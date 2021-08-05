@@ -8,22 +8,29 @@
             @lang('Shop Search')
         </h1>
 
-        <gmap v-cloak v-slot="{ selectLocation, selectedLocation }">
+        <gmap v-cloak v-slot="{ selectLocation, selectedLocation, visibleLocations, zoomToPlace }">
             <div class="md:flex md:space-x-5">
                 <div class="md:w-1/3">
-                    <div class="flex space-x-3 justify-between mb-3">
-                        <x-rapidez::input name="search" :label="false" wrapperClass="w-full" class="h-full" />
-                        <x-rapidez::button>
-                            @lang('Search')
-                        </x-rapidez::button>
-                    </div>
+                    <gmap-autocomplete v-on:place_changed="zoomToPlace" class="block mb-3">
+                        <template v-slot:input="slotProps">
+                            <x-rapidez::input
+                                name="search"
+                                :label="false"
+                                ref="input"
+                                class="py-3"
+                                v-on:listeners="slotProps.listeners"
+                                v-on:attrs="slotProps.attrs"
+                                :placeholder="__('Zipcode or City')"
+                            />
+                        </template>
+                    </gmap-autocomplete>
 
                     <a
                         href="#"
                         v-for="retailer in config.retailers"
                         class="block border border-l-4 rounded p-2 mb-2 bg-gray-50 hover:bg-white"
                         :class="{
-                            'border-primary': selectedLocation && selectedLocation.address_id == retailer.address_id
+                            'border-primary': (selectedLocation && selectedLocation.address_id == retailer.address_id) || (visibleLocations ?? []).includes(retailer.address_id)
                         }"
                         v-on:click.prevent="selectLocation(retailer.address_id)"
                     >

@@ -4,13 +4,16 @@ import { gmapApi } from 'gmap-vue'
 export default {
     render() {
         return this.$scopedSlots.default({
+            zoomToPlace: this.zoomToPlace,
             selectLocation: this.selectLocation,
             selectedLocation: this.selectedLocation,
+            visibleLocations: this.visibleLocations,
         })
     },
 
     data: () => ({
-        selectedLocation: null
+        selectedLocation: null,
+        visibleLocations: [],
     }),
 
     mounted() {
@@ -36,6 +39,21 @@ export default {
             })
             this.map.fitBounds(bounds)
             this.map.$mapObject.setZoom(15)
+            this.visibleLocations = []
+        },
+
+        zoomToPlace(place) {
+            this.map.$mapObject.setZoom(11)
+            this.map.$mapObject.setCenter(place.geometry.location)
+
+            this.selectedLocation = null
+            this.visibleLocations = []
+            let bounds = this.map.$mapObject.getBounds()
+            config.retailers.forEach(retailer => {
+                if (bounds.contains({ lat: retailer.latitude, lng: retailer.longitude })) {
+                    this.visibleLocations.push(retailer.address_id)
+                }
+            })
         }
     },
 
