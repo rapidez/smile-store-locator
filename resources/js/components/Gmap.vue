@@ -6,6 +6,7 @@ export default {
         return this.$scopedSlots.default({
             zoomToPlace: this.zoomToPlace,
             selectLocation: this.selectLocation,
+            currentLocation: this.currentLocation,
             selectedLocation: this.selectedLocation,
             visibleLocations: this.visibleLocations,
         })
@@ -30,6 +31,23 @@ export default {
     },
 
     methods: {
+        currentLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    this.zoomToPlace({
+                        geometry: {
+                            location: {
+                                lat: position.coords.latitude,
+                                lng: position.coords.longitude,
+                            }
+                        }
+                    })
+                });
+            } else {
+               alert('Your browser does not support geolocation.')
+            }
+        },
+
         selectLocation(id) {
             this.selectedLocation = config.retailers.find((retailer) => retailer.address_id == id)
             const bounds = new google.maps.LatLngBounds()

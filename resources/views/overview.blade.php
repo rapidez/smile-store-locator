@@ -8,10 +8,10 @@
             @lang('Shop Search')
         </h1>
 
-        <gmap v-cloak v-slot="{ selectLocation, selectedLocation, visibleLocations, zoomToPlace }">
+        <gmap v-cloak v-slot="{ selectLocation, currentLocation, selectedLocation, visibleLocations, zoomToPlace }">
             <div class="md:flex md:space-x-5">
                 <div class="md:w-1/3">
-                    <gmap-autocomplete v-on:place_changed="zoomToPlace" class="block mb-3">
+                    <gmap-autocomplete v-on:place_changed="zoomToPlace" class="block mb-1">
                         <template v-slot:input="slotProps">
                             <x-rapidez::input
                                 name="search"
@@ -24,6 +24,11 @@
                             />
                         </template>
                     </gmap-autocomplete>
+
+                    <a href="#" v-on:click.prevent="currentLocation" class="flex items-center text-primary mb-5 hover:underline">
+                        <x-heroicon-s-location-marker class="h-4 w-4 mr-1"/>
+                        @lang('Use my location')
+                    </a>
 
                     <a
                         href="#"
