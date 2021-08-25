@@ -1,6 +1,7 @@
 @extends('rapidez::layouts.app')
 
 @section('title', __('Shop Search'))
+@section('canonical', url()->current())
 
 @section('content')
     <div class="container mx-auto mb-5 px-3 sm:px-0">
@@ -11,7 +12,7 @@
         <gmap v-cloak v-slot="{ selectLocation, currentLocation, selectedLocation, visibleLocations, zoomToPlace }">
             <div class="md:flex md:space-x-5">
                 <div class="md:w-1/3">
-                    <gmap-autocomplete v-on:place_changed="zoomToPlace" class="block mb-1">
+                    <gmap-autocomplete v-on:place_changed="zoomToPlace" :select-first-on-enter="true" class="block mb-1">
                         <template v-slot:input="slotProps">
                             <x-rapidez::input
                                 name="search"
@@ -21,6 +22,8 @@
                                 v-on:listeners="slotProps.listeners"
                                 v-on:attrs="slotProps.attrs"
                                 :placeholder="__('Zipcode or City')"
+                                value="{{ request()->location }}"
+                                autofocus
                             />
                         </template>
                     </gmap-autocomplete>
