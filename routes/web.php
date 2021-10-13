@@ -21,7 +21,7 @@ Route::get($baseUrl, function () {
 })->name('smilestorelocator.overview');
 
 Route::get($baseUrl.'/{seller}', function ($seller) {
-    $retailer = Retailer::having('url_key', $seller)->first();
+    $retailer = Retailer::having('url_key', $seller)->firstOrFail();
 
     return view('smilestorelocator::detail', compact('retailer'));
 })->name('smilestorelocator.detail');
