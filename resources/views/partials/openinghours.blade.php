@@ -31,8 +31,8 @@
                 {{ $specialTime->description }}
             </div>
             <div class="w-1/3">
-                {{ Carbon\Carbon::parse($time['start_time'])->format('H:i') }} -
-                {{ Carbon\Carbon::parse($time['end_time'])->format('H:i') }}
+                {{ Carbon\Carbon::parse($specialTime['start_time'])->format('H:i') }} -
+                {{ Carbon\Carbon::parse($specialTime['end_time'])->format('H:i') }}
             </div>
         </div>
     @endforeach
