@@ -14,7 +14,7 @@ class Times extends Model
     protected $primaryKey = false;
 
     protected $casts = [
-        'date' => 'date',
+        'date' => 'date:Y-m-d',
     ];
 
     protected static function booted()
