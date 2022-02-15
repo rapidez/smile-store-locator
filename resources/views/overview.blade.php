@@ -9,7 +9,7 @@
             @lang('Shop Search')
         </h1>
 
-        <gmap v-cloak v-slot="{ selectLocation, currentLocation, selectedLocation, visibleLocations, zoomToPlace }">
+        <gmap v-cloak v-slot="{ selectLocation, currentLocation, selectedLocation, visibleLocations, zoomToPlace, retailers }">
             <div class="md:flex md:space-x-5">
                 <div class="md:w-1/3">
                     <gmap-autocomplete v-on:place_changed="zoomToPlace" :select-first-on-enter="true" class="block mb-1">
@@ -35,7 +35,7 @@
 
                     <a
                         href="#"
-                        v-for="retailer in config.retailers"
+                        v-for="retailer in retailers"
                         class="block border border-l-4 rounded p-2 mb-2 bg-gray-50 hover:bg-white"
                         :class="{
                             'border-primary': (selectedLocation && selectedLocation.address_id == retailer.address_id) || (visibleLocations ?? []).includes(retailer.address_id)

@@ -9,18 +9,20 @@ export default {
             currentLocation: this.currentLocation,
             selectedLocation: this.selectedLocation,
             visibleLocations: this.visibleLocations,
+            retailers: this.retailers,
         })
     },
 
     data: () => ({
         selectedLocation: null,
         visibleLocations: [],
+        retailers: config.retailers,
     }),
 
     mounted() {
         this.map.$mapPromise.then((map) => {
             const bounds = new google.maps.LatLngBounds()
-            for (let retailer of config.retailers) {
+            for (let retailer of this.retailers) {
                 bounds.extend({
                     lat: retailer.latitude,
                     lng: retailer.longitude,
@@ -28,6 +30,9 @@ export default {
             }
             map.fitBounds(bounds)
         })
+
+        this.map.$on('bounds_changed', _.debounce(this.onBoundsChanged, 50));
+        this.map.$on('center_changed', _.debounce(this.onCenterChanged, 50));
     },
 
     methods: {
@@ -48,8 +53,57 @@ export default {
             }
         },
 
+        onBoundsChanged(bounds) {
+            this.visibleLocations = []
+            this.retailers.forEach(retailer => {
+                if (bounds.contains({ lat: retailer.latitude, lng: retailer.longitude })) {
+                    this.visibleLocations.push(retailer.address_id)
+                }
+            })
+        },
+
+        onCenterChanged(center) {
+            this.sortRetailers(center)
+        },
+
+        calculateDistance(lat1, lng1, lat2, lng2) {
+            lat1 = this.convertToRadians(lat1);
+            lng1 = this.convertToRadians(lng1);
+            lat2 = this.convertToRadians(lat2);
+            lng2 = this.convertToRadians(lng2);
+
+            let lngDiff = lng2 - lng1;
+            let latDiff = lat2 - lat1;
+
+            // Calculate the distance in Radians.
+            let distance = 2 * Math.asin(
+                Math.sqrt(
+                        Math.pow(Math.sin(latDiff / 2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(lngDiff / 2),2)
+                    )
+                );
+
+            // Radius of earth in kilometers.
+            let radius = 6371;
+
+            // calculate the result
+            return distance * radius;
+        },
+
+        convertToRadians(coord) {
+            return coord / (180 / Math.PI);
+        },
+
+        sortRetailers: function (center) {
+            center = center ?? this.map.$mapObject.center
+            let maplat = center.lat();
+            let maplng = center.lng();
+            if (!maplat || !maplng) return;
+
+            this.retailers = this.retailers.sort((retailer1, retailer2) => this.calculateDistance(maplat, maplng, retailer1.latitude, retailer1.longitude) - this.calculateDistance(maplat, maplng, retailer2.latitude, retailer2.longitude));
+        },
+
         selectLocation(id) {
-            this.selectedLocation = config.retailers.find((retailer) => retailer.address_id == id)
+            this.selectedLocation = this.retailers.find((retailer) => retailer.address_id == id)
             const bounds = new google.maps.LatLngBounds()
             bounds.extend({
                 lat: this.selectedLocation.latitude,
@@ -57,7 +111,8 @@ export default {
             })
             this.map.fitBounds(bounds)
             this.map.$mapObject.setZoom(15)
-            this.visibleLocations = []
+
+            this.onBoundsChanged(this.map.$mapObject.getBounds())
         },
 
         zoomToPlace(place) {
@@ -65,13 +120,8 @@ export default {
             this.map.$mapObject.setCenter(place.geometry.location)
 
             this.selectedLocation = null
-            this.visibleLocations = []
-            let bounds = this.map.$mapObject.getBounds()
-            config.retailers.forEach(retailer => {
-                if (bounds.contains({ lat: retailer.latitude, lng: retailer.longitude })) {
-                    this.visibleLocations.push(retailer.address_id)
-                }
-            })
+
+            this.onBoundsChanged(this.map.$mapObject.getBounds())
         }
     },
 
