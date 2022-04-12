@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/org/repo/compare/0.6.0...master)
+## [Unreleased](https://github.com/org/repo/compare/0.6.1...master)
+
+## [0.6.1](https://github.com/org/repo/compare/0.6.0...0.6.1) - 2022-04-12
+
+### Fixed
+
+- Use the new core facade location (3814224)
 
 ## [0.6.0](https://github.com/org/repo/compare/0.5.0...0.6.0) - 2022-04-11
 
