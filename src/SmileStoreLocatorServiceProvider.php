@@ -3,7 +3,7 @@
 namespace Rapidez\SmileStoreLocator;
 
 use Illuminate\Support\ServiceProvider;
-use Rapidez\Core\RapidezFacade as Rapidez;
+use Rapidez\Core\Facades\Rapidez;
 
 class SmileStoreLocatorServiceProvider extends ServiceProvider
 {

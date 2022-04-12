@@ -2,7 +2,7 @@
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
-use Rapidez\Core\RapidezFacade as Rapidez;
+use Rapidez\Core\Facades\Rapidez;
 use Rapidez\SmileStoreLocator\Models\Retailer;
 
 $baseUrl = Rapidez::config('store_locator/seo/base_url', 'stores');
