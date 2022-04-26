@@ -21,11 +21,19 @@
                     {{ $retailer->postcode }}<br>
                     {{ $retailer->values->contact_phone }}<br>
                     <br>
-                    @if($closingTime = $retailer->closing_time)
-                        <span class="text-green-600">@lang('Open')</span>,
-                        <span class="text-gray-600">@lang('closing at') {{ $closingTime }}</span>
+                    @php
+                        $startTime = $retailer->opening_time;
+                        $endTime = $retailer->closing_time;
+                    @endphp
+
+                    @if($startTime && $startTime->isFuture())
+                        <span class="text-red font-bold">@lang('Closed')</span>,
+                        <span>@lang('opening at') {{ $startTime->format('H:i') }}</span>
+                    @elseif($endTime && $endTime->isFuture())
+                        <span class="text-primary font-bold">@lang('Open')</span>,
+                        <span>@lang('closing at') {{ $endTime->format('H:i') }}</span>
                     @else
-                        <span class="text-red-600">@lang('Closed')</span>
+                        <span class="text-red font-bold">@lang('Closed')</span>
                     @endif
                 </div>
 

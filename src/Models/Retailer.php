@@ -107,14 +107,35 @@ class Retailer extends Model
         return $this->values = (object) $values;
     }
 
+    public function getOpeningTimeAttribute()
+    {
+        if ($specialOpeningHour = $this->times->first(function ($time) {
+            return $time->attribute_code == 'special_opening_hours' && $time->date->toDateString() == today()->toDateString();
+        })) {
+            $date = Carbon::parse($specialOpeningHour->start_time)->setDateFrom(today());
+
+            return $date->isFuture() ? $date : false;
+        }
+
+        if ($openingHour = $this->times->first(function ($time) {
+            return $time->attribute_code == 'opening_hours' && $time->day_of_week == today()->dayOfWeek;
+        })) {
+            $date = Carbon::parse($openingHour->start_time)->setDateFrom(today());
+
+            return $date->isFuture() ? $date : false;
+        }
+
+        return false;
+    }
+
     public function getClosingTimeAttribute()
     {
         if ($specialOpeningHour = $this->times->first(function ($time) {
             return $time->attribute_code == 'special_opening_hours' && $time->date->toDateString() == today()->toDateString();
         })) {
-            $date = Carbon::parse($specialOpeningHour->end_time)->setDateFrom(today());
+            $date = Carbon::parse(str_replace('1970-01-01 ', '', $specialOpeningHour->end_time))->setDateFrom(today());
 
-            return $date->isFuture() ? $date->format('H:i') : false;
+            return $date->isFuture() ? $date : false;
         }
 
         if ($openingHour = $this->times->first(function ($time) {
@@ -122,7 +143,7 @@ class Retailer extends Model
         })) {
             $date = Carbon::parse($openingHour->end_time)->setDateFrom(today());
 
-            return $date->isFuture() ? $date->format('H:i') : false;
+            return $date->isFuture() ? $date : false;
         }
 
         return false;
