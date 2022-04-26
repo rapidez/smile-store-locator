@@ -133,7 +133,7 @@ class Retailer extends Model
         if ($specialOpeningHour = $this->times->first(function ($time) {
             return $time->attribute_code == 'special_opening_hours' && $time->date->toDateString() == today()->toDateString();
         })) {
-            $date = Carbon::parse(str_replace('1970-01-01 ', '', $specialOpeningHour->end_time))->setDateFrom(today());
+            $date = Carbon::parse($specialOpeningHour->end_time)->setDateFrom(today());
 
             return $date->isFuture() ? $date : false;
         }
