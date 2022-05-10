@@ -31,8 +31,8 @@ export default {
             map.fitBounds(bounds)
         })
 
-        this.map.$on('bounds_changed', _.debounce(this.onBoundsChanged, 50));
-        this.map.$on('center_changed', _.debounce(this.onCenterChanged, 50));
+        this.map.$on('bounds_changed', window.debounce(this.onBoundsChanged, 50));
+        this.map.$on('center_changed', window.debounce(this.onCenterChanged, 50));
     },
 
     methods: {

@@ -46,7 +46,7 @@
                         <div class="text-sm">
                             <div v-if="closing_time = retailer.closing_time">
                                 <span class="text-green-600">@lang('Open')</span>,
-                                <span class="text-gray-600">@lang('closing at') @{{ closing_time }}</span>
+                                <span class="text-gray-600">@lang('closing at') @{{ (new Date(closing_time)).toLocaleTimeString() }}</span>
                             </div>
                             <div class="text-red-600" v-else>
                                 @lang('Closed')
@@ -60,7 +60,7 @@
                         <div class="text-sm mb-5">
                             <div v-if="closing_time = selectedLocation.closing_time">
                                 <span class="text-green-600">@lang('Open')</span>,
-                                <span class="text-gray-600">@lang('closing at') @{{ closing_time }}</span>
+                                <span class="text-gray-600">@lang('closing at') @{{ (new Date(closing_time)).toLocaleTimeString() }}</span>
                             </div>
                             <div class="text-red-600" v-else>
                                 @lang('Closed')
