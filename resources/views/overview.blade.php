@@ -44,9 +44,9 @@
                     >
                         <div>@{{ retailer.street }} - @{{ retailer.city }}</div>
                         <div class="text-sm">
-                            <div v-if="closing_time = retailer.closing_time">
+                            <div v-if="!retailer.opening_time && retailer.closing_time">
                                 <span class="text-green-600">@lang('Open')</span>,
-                                <span class="text-gray-600">@lang('closing at') @{{ (new Date(closing_time)).toLocaleTimeString() }}</span>
+                                <span class="text-gray-600">@lang('closing at') @{{ (new Date(retailer.closing_time)).toLocaleTimeString() }}</span>
                             </div>
                             <div class="text-red-600" v-else>
                                 @lang('Closed')
@@ -58,9 +58,9 @@
                     <div v-if="selectedLocation" class="absolute bg-white p-3 rounded shadow z-10 top-2 left-2">
                         <div>@{{ selectedLocation.street }} - @{{ selectedLocation.city }}</div>
                         <div class="text-sm mb-5">
-                            <div v-if="closing_time = selectedLocation.closing_time">
+                            <div v-if="!selectedLocation.opening_time && selectedLocation.closing_time">
                                 <span class="text-green-600">@lang('Open')</span>,
-                                <span class="text-gray-600">@lang('closing at') @{{ (new Date(closing_time)).toLocaleTimeString() }}</span>
+                                <span class="text-gray-600">@lang('closing at') @{{ (new Date(selectedLocation.closing_time)).toLocaleTimeString() }}</span>
                             </div>
                             <div class="text-red-600" v-else>
                                 @lang('Closed')
