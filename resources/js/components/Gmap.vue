@@ -21,19 +21,21 @@ export default {
     }),
 
     mounted() {
-        this.map.$mapPromise.then((map) => {
-            const bounds = new google.maps.LatLngBounds()
-            for (let retailer of this.retailers) {
-                bounds.extend({
-                    lat: retailer.latitude,
-                    lng: retailer.longitude,
-                })
-            }
-            map.fitBounds(bounds)
-        })
+        if (this.map) {
+            this.map.$mapPromise.then((map) => {
+                const bounds = new google.maps.LatLngBounds()
+                for (let retailer of this.retailers) {
+                    bounds.extend({
+                        lat: retailer.latitude,
+                        lng: retailer.longitude,
+                    })
+                }
+                map.fitBounds(bounds)
+            })
 
-        this.map.$on('bounds_changed', window.debounce(this.onBoundsChanged, 50));
-        this.map.$on('center_changed', window.debounce(this.onCenterChanged, 50));
+            this.map.$on('bounds_changed', window.debounce(this.onBoundsChanged, 50));
+            this.map.$on('center_changed', window.debounce(this.onCenterChanged, 50));
+        }
     },
 
     methods: {
