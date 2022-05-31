@@ -10,6 +10,7 @@ export default {
             selectedLocation: this.selectedLocation,
             visibleLocations: this.visibleLocations,
             retailers: this.retailers,
+            getUpcomingOpeningTime: this.getUpcomingOpeningTime
         })
     },
 
@@ -122,6 +123,23 @@ export default {
             this.selectedLocation = null
 
             this.onBoundsChanged(this.map.$mapObject.getBounds())
+        },
+        getUpcomingOpeningTime(retailer) {
+            if (retailer.opening_time) {
+                return new Date(retailer.opening_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+            }
+
+            let today = (new Date()).getDay()
+            let dayNumber = (today + 1 !== 7 ? today + 1 : 0)
+
+            let upcomingDay = retailer.times.find((time) => time.attribute_code == 'opening_hours' && time.day_of_week == dayNumber)
+
+            while (!upcomingDay || upcomingDay === 'undefined') {
+                dayNumber = dayNumber + 1 !== 7 ? dayNumber + 1 : 0
+                upcomingDay = retailer.times.find((time) => time.attribute_code == 'opening_hours' && time.day_of_week == dayNumber)
+            }
+
+            return (dayNumber !== today + 1 !== 7 ? today + 1 : 0) ? config.day_names[dayNumber].toLowerCase() : new Date(upcomingDay.start_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
         }
     },
 

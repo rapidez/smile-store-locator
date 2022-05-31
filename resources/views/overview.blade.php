@@ -9,7 +9,7 @@
             @lang('Shop Search')
         </h1>
 
-        <gmap v-cloak v-slot="{ selectLocation, currentLocation, selectedLocation, visibleLocations, zoomToPlace, retailers }">
+        <gmap v-cloak v-slot="{ selectLocation, currentLocation, selectedLocation, visibleLocations, zoomToPlace, retailers, getUpcomingOpeningTime }">
             <div class="md:flex md:space-x-5">
                 <div class="md:w-1/3">
                     <gmap-autocomplete v-on:place_changed="zoomToPlace" :select-first-on-enter="true" class="block mb-1">
@@ -48,8 +48,13 @@
                                 <span class="text-green-600">@lang('Open')</span>,
                                 <span class="text-gray-600">@lang('closing at') @{{ (new Date(retailer.closing_time)).toLocaleTimeString() }}</span>
                             </div>
-                            <div class="text-red-600" v-else>
-                                @lang('Closed')
+                            <div v-else>
+                                <span class="text-red-600">@lang('Closed')</span>,
+                                <span class="text-gray-600">
+                                    <template v-if="getUpcomingOpeningTime(retailer).includes(':')">@lang('open at') </template>
+                                    <template v-else>@lang('open on') </template>
+                                    @{{ getUpcomingOpeningTime(retailer) }}
+                                </span>
                             </div>
                         </div>
                     </a>
@@ -62,8 +67,13 @@
                                 <span class="text-green-600">@lang('Open')</span>,
                                 <span class="text-gray-600">@lang('closing at') @{{ (new Date(selectedLocation.closing_time)).toLocaleTimeString() }}</span>
                             </div>
-                            <div class="text-red-600" v-else>
-                                @lang('Closed')
+                            <div v-else>
+                                <span class="text-red-600">@lang('Closed')</span>,
+                                <span class="text-gray-600">
+                                    <template v-if="getUpcomingOpeningTime(retailer).includes(':')">@lang('open at') </template>
+                                    <template v-else>@lang('open on') </template>
+                                    @{{ getUpcomingOpeningTime(retailer) }}
+                                </span>
                             </div>
                         </div>
                         <a
