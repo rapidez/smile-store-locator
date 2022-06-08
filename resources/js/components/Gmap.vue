@@ -19,7 +19,9 @@ export default {
         retailers: config.retailers,
     }),
 
-    mounted() {
+    async mounted() {
+        await this.$gmapApiPromiseLazy()
+
         this.map.$mapPromise.then((map) => {
             const bounds = new google.maps.LatLngBounds()
             for (let retailer of this.retailers) {
