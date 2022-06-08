@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/org/repo/compare/0.6.5...master)
+## [Unreleased](https://github.com/org/repo/compare/0.6.6...master)
+
+## [0.6.6](https://github.com/org/repo/compare/0.6.5...0.6.6) - 2022-06-08
+
+### Fixed
+
+- Just a version bump
 
 ## [0.6.5](https://github.com/org/repo/compare/0.6.4...0.6.5) - 2022-06-07
 
