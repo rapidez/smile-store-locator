@@ -1,6 +1,18 @@
 # Changelog
 
-## [Unreleased](https://github.com/org/repo/compare/0.6.4...master)
+## [Unreleased](https://github.com/org/repo/compare/0.6.6...master)
+
+## [0.6.6](https://github.com/org/repo/compare/0.6.5...0.6.6) - 2022-06-08
+
+### Fixed
+
+- Just a version bump
+
+## [0.6.5](https://github.com/org/repo/compare/0.6.4...0.6.5) - 2022-06-07
+
+### Fixed
+
+- Wait for maps to be loaded, useful for lazy loading (9fe73cd)
 
 ## [0.6.4](https://github.com/org/repo/compare/0.6.3...0.6.4) - 2022-05-20
 
