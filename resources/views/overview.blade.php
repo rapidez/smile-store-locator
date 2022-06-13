@@ -51,9 +51,12 @@
                             <div v-else>
                                 <span class="text-red-600">@lang('Closed')</span>,
                                 <span class="text-gray-600">
-                                    <template v-if="getUpcomingOpeningTime(retailer).includes(':')">@lang('open at') </template>
-                                    <template v-else>@lang('open on') </template>
-                                    @{{ getUpcomingOpeningTime(retailer) }}
+                                    <template v-if="getUpcomingOpeningTime(retailer).includes(':')">
+                                        @lang('open again on') @{{ getUpcomingOpeningTime(retailer) }}
+                                    </template>
+                                    <template v-else>
+                                        @lang('open at') @{{ getUpcomingOpeningTime(retailer) }}
+                                    </template>
                                 </span>
                             </div>
                         </div>
@@ -70,9 +73,12 @@
                             <div v-else>
                                 <span class="text-red-600">@lang('Closed')</span>,
                                 <span class="text-gray-600">
-                                    <template v-if="getUpcomingOpeningTime(retailer).includes(':')">@lang('open at') </template>
-                                    <template v-else>@lang('open on') </template>
-                                    @{{ getUpcomingOpeningTime(retailer) }}
+                                    <template v-if="getUpcomingOpeningTime(retailer).includes(':')">
+                                        @lang('open again on') @{{ getUpcomingOpeningTime(retailer) }}
+                                    </template>
+                                    <template v-else>
+                                        @lang('open at') @{{ getUpcomingOpeningTime(retailer) }}
+                                    </template>
                                 </span>
                             </div>
                         </div>
