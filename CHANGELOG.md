@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/org/repo/compare/0.6.6...master)
+## [Unreleased](https://github.com/org/repo/compare/0.7.0...master)
+
+## [0.7.0](https://github.com/org/repo/compare/0.6.6...0.7.0) - 2022-06-19
+
+### Added
+
+- Show opening times if closed (#6)
 
 ## [0.6.6](https://github.com/org/repo/compare/0.6.5...0.6.6) - 2022-06-08
 
