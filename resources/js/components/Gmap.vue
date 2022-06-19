@@ -10,6 +10,7 @@ export default {
             selectedLocation: this.selectedLocation,
             visibleLocations: this.visibleLocations,
             retailers: this.retailers,
+            getUpcomingOpeningTime: this.getUpcomingOpeningTime
         })
     },
 
@@ -22,19 +23,21 @@ export default {
     async mounted() {
         await this.$gmapApiPromiseLazy()
 
-        this.map.$mapPromise.then((map) => {
-            const bounds = new google.maps.LatLngBounds()
-            for (let retailer of this.retailers) {
-                bounds.extend({
-                    lat: retailer.latitude,
-                    lng: retailer.longitude,
-                })
-            }
-            map.fitBounds(bounds)
-        })
+        if (this.map) {
+            this.map.$mapPromise.then((map) => {
+                const bounds = new google.maps.LatLngBounds()
+                for (let retailer of this.retailers) {
+                    bounds.extend({
+                        lat: retailer.latitude,
+                        lng: retailer.longitude,
+                    })
+                }
+                map.fitBounds(bounds)
+            })
 
-        this.map.$on('bounds_changed', window.debounce(this.onBoundsChanged, 50));
-        this.map.$on('center_changed', window.debounce(this.onCenterChanged, 50));
+            this.map.$on('bounds_changed', window.debounce(this.onBoundsChanged, 50));
+            this.map.$on('center_changed', window.debounce(this.onCenterChanged, 50));
+        }
     },
 
     methods: {
@@ -124,6 +127,36 @@ export default {
             this.selectedLocation = null
 
             this.onBoundsChanged(this.map.$mapObject.getBounds())
+        },
+        getUpcomingOpeningTime(retailer) {
+            if (retailer.opening_time) {
+                // When the retailer has an opening_time, then it will be opened later this day
+                return new Date(retailer.opening_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+            }
+
+            let date = new Date(),
+                today = date.getDay() + 1,
+                dayNumber = today !== 7 ? today : 0,
+                dayIterator = 1,
+                upcomingDay = false
+
+            while (!upcomingDay || upcomingDay === 'undefined') {
+                // Get upcomming day if it has special opening hours
+                upcomingDay = retailer.times.find((time) => time.attribute_code == 'special_opening_hours' && time.date == (new Date(date.setDate(date.getDate() + dayIterator))).toISOString().split('T')[0])
+                dayIterator += 1
+
+                // When the upcomming day's start- and end_time are the same, then the retailer is closed the upcoming day, so set the upcomingDay undefined
+                upcomingDay = upcomingDay && upcomingDay !== 'undefined' && upcomingDay.start_time == upcomingDay.end_time ? 'undefined' : upcomingDay
+
+                // If there aren't special opening hours, get the default opening hours
+                if (!upcomingDay || upcomingDay === 'undefined') {
+                    dayNumber = dayNumber + 1 !== 7 ? dayNumber + 1 : 0
+                    upcomingDay = retailer.times.find((time) => time.attribute_code == 'opening_hours' && time.day_of_week == dayNumber)
+                }
+            }
+
+            // If the retailer no longer opens today, show what day it will open again. Otherwise, show the time the store opens today
+            return (dayNumber !== (today !== 7 ? today : 0)) ? config.day_names[dayNumber].toLowerCase() : new Date(upcomingDay.start_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
         }
     },
 
