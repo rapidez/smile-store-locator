@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/org/repo/compare/0.7.2...master)
+## [Unreleased](https://github.com/org/repo/compare/0.7.3...master)
+
+## [0.7.3](https://github.com/org/repo/compare/0.7.2...0.7.3) - 2022-06-23
+
+### Fixed
+
+- Fix wrong day + check if value exists (#9)
 
 ## [0.7.2](https://github.com/org/repo/compare/0.7.1...0.7.2) - 2022-06-23
 
