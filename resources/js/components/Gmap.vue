@@ -150,13 +150,13 @@ export default {
 
                 // If there aren't special opening hours, get the default opening hours
                 if (!upcomingDay || upcomingDay === 'undefined') {
-                    dayNumber = dayNumber + 1 !== 7 ? dayNumber + 1 : 0
+                    dayNumber = dayNumber !== 7 ? dayNumber : 0
                     upcomingDay = retailer.times.find((time) => time.attribute_code == 'opening_hours' && parseInt(time.day_of_week) == dayNumber)
                 }
             }
 
             // If the retailer no longer opens today, show what day it will open again. Otherwise, show the time the store opens today
-            return (dayNumber !== (today !== 7 ? today : 0)) ? config.day_names[dayNumber].toLowerCase() : new Date(upcomingDay.start_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+            return (dayNumber !== (today !== 7 ? today : 0)) ? config.day_names[dayNumber].toLowerCase() : upcomingDay.start_time
         }
     },
 
