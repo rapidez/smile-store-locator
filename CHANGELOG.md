@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/org/repo/compare/0.7.1...master)
+## [Unreleased](https://github.com/org/repo/compare/0.7.2...master)
+
+## [0.7.2](https://github.com/org/repo/compare/0.7.1...0.7.2) - 2022-06-23
+
+### Fixed
+
+- Always parse day_of_week to int (#8)
 
 ## [0.7.1](https://github.com/org/repo/compare/0.7.0...0.7.1) - 2022-06-23
 
