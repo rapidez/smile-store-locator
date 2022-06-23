@@ -135,7 +135,7 @@ export default {
             }
 
             let date = new Date(),
-                today = date.getDay() + 1,
+                today = date.getDay(),
                 dayNumber = today !== 7 ? today : 0,
                 dayIterator = 1,
                 upcomingDay = false
