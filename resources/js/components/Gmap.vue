@@ -151,7 +151,7 @@ export default {
                 // If there aren't special opening hours, get the default opening hours
                 if (!upcomingDay || upcomingDay === 'undefined') {
                     dayNumber = dayNumber + 1 !== 7 ? dayNumber + 1 : 0
-                    upcomingDay = retailer.times.find((time) => time.attribute_code == 'opening_hours' && time.day_of_week == dayNumber)
+                    upcomingDay = retailer.times.find((time) => time.attribute_code == 'opening_hours' && parseInt(time.day_of_week) == dayNumber)
                 }
             }
 
