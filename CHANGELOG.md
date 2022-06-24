@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/org/repo/compare/0.7.3...master)
+## [Unreleased](https://github.com/org/repo/compare/0.7.4...master)
+
+## [0.7.4](https://github.com/org/repo/compare/0.7.3...0.7.4) - 2022-06-24
+
+### Fixed
+
+- Fix for if the store is closed this day but opens in the next days (#10)
 
 ## [0.7.3](https://github.com/org/repo/compare/0.7.2...0.7.3) - 2022-06-23
 
