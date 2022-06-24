@@ -131,7 +131,9 @@ export default {
         getUpcomingOpeningTime(retailer) {
             if (retailer.opening_time) {
                 // When the retailer has an opening_time, then it will be opened later this day
-                return new Date(retailer.opening_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+                let openingTime = Date.parse(retailer.opening_time)
+
+                return !isNaN(openingTime) ? new Date(openingTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : retailer.opening_time
             }
 
             let date = new Date(),
@@ -150,7 +152,7 @@ export default {
 
                 // If there aren't special opening hours, get the default opening hours
                 if (!upcomingDay || upcomingDay === 'undefined') {
-                    dayNumber = dayNumber !== 7 ? dayNumber : 0
+                    dayNumber = dayNumber + 1 !== 7 ? dayNumber + 1 : 0
                     upcomingDay = retailer.times.find((time) => time.attribute_code == 'opening_hours' && parseInt(time.day_of_week) == dayNumber)
                 }
             }
