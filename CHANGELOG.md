@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/org/repo/compare/0.7.4...master)
+## [Unreleased](https://github.com/org/repo/compare/0.8.0...master)
+
+## [0.8.0](https://github.com/org/repo/compare/0.7.4...0.8.0) - 2022-07-07
+
+### Added
+
+- Include the phone number by default (eb9cc05)
 
 ## [0.7.4](https://github.com/org/repo/compare/0.7.3...0.7.4) - 2022-06-24
 
