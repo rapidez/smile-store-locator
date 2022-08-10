@@ -172,4 +172,33 @@ class Retailer extends Model
 
         return false;
     }
+
+    public function getUpcomingOpeningTimeAttribute()
+    {
+        // When the retailer has an opening_time, then it will be opened later this day
+        if ($this->opening_time) {
+            return $this->opening_time->format('H:i');
+        }
+
+        $dayNumber = Carbon::now()->dayOfWeek;
+        $dayIterator = 1;
+        $upcomingDay = false;
+
+        while (!$upcomingDay) {
+            $upcomingDay = $this->times->filter(fn ($time) => $time->attribute_code === 'special_opening_hours' && Carbon::now()->addDays($dayIterator)->isSameDay(Carbon::createFromFormat('Y-m-d', $time->date)))->first();
+            $dayIterator += 1;
+
+            // When the upcoming day's start- and end_time are the same, then the retailer is closed the upcoming day, so set the upcomingDay false
+            $upcomingDay = $upcomingDay && $upcomingDay->start_time == $upcomingDay->end_time ? false : $upcomingDay;
+
+            // If there aren't special opening hours, get the default opening hours
+            if (!$upcomingDay) {
+                $dayNumber = $dayNumber + 1 !== 7 ? $dayNumber + 1 : 0;
+                $upcomingDay = $this->times->filter(fn ($time) => $time->attribute_code === 'opening_hours' && (int)$time->day_of_week == $dayNumber);
+            }
+        }
+
+        // If the retailer no longer opens today, show what day it will open again. Otherwise, show the time the store opens today
+        return $dayNumber !== Carbon::now()->dayOfWeek ? strtolower(config('frontend.day_names')[$dayNumber]) : $upcomingDay->start_time;
+    }
 }
