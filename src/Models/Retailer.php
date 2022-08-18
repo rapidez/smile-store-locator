@@ -22,6 +22,25 @@ class Retailer extends Model
 
     protected $values;
 
+    protected $fillable = [
+        'retailer_id',
+        'created_at',
+        'updated_at',
+        'street',
+        'postcode',
+        'city',
+        'region',
+        'region_id',
+        'country_id',
+        'latitude',
+        'longitude',
+        'street_view',
+        'facilities',
+        'url_key',
+        'phone',
+        'times'
+    ];
+
     protected static function booted()
     {
         static::addGlobalScope('with-url-key', function (Builder $builder) {
@@ -194,7 +213,7 @@ class Retailer extends Model
             // If there aren't special opening hours, get the default opening hours
             if (!$upcomingDay) {
                 $dayNumber = $dayNumber + 1 !== 7 ? $dayNumber + 1 : 0;
-                $upcomingDay = $this->times->filter(fn ($time) => $time->attribute_code === 'opening_hours' && (int)$time->day_of_week == $dayNumber);
+                $upcomingDay = $this->times->filter(fn ($time) => $time->attribute_code === 'opening_hours' && (int) $time->day_of_week == $dayNumber);
             }
         }
 

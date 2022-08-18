@@ -17,6 +17,17 @@ class Times extends Model
         'date' => 'date:Y-m-d',
     ];
 
+    protected $fillable = [
+        'attribute_code',
+        'day_of_week',
+        'date',
+        'start_time',
+        'end_time',
+        'description',
+        'display_from_date',
+        'display_to_date'
+    ];
+
     protected static function booted()
     {
         static::addGlobalScope('only-active-times', function (Builder $builder) {
@@ -27,6 +38,9 @@ class Times extends Model
                 })->where(function ($query) {
                     $query->whereNull('display_to_date')
                           ->orWhere('display_to_date', '>=', Carbon::now()->toDateString());
+                })->where(function ($query) {
+                    $query->whereNull('date')
+                          ->orWhere('date', '>=', Carbon::now()->toDateString());
                 });
                 $builder->orderBy('date');
             }
