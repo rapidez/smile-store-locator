@@ -14,19 +14,12 @@ class Times extends Model
     protected $primaryKey = false;
 
     protected $casts = [
-        'date' => 'date:Y-m-d',
+        'date'       => 'date:Y-m-d',
+        'start_time' => 'datetime',
+        'end_time'   => 'datetime',
     ];
 
-    protected $fillable = [
-        'attribute_code',
-        'day_of_week',
-        'date',
-        'start_time',
-        'end_time',
-        'description',
-        'display_from_date',
-        'display_to_date'
-    ];
+    protected $fillable = [];
 
     protected static function booted()
     {
@@ -47,5 +40,37 @@ class Times extends Model
 
             $builder->orderBy('date');
         });
+    }
+
+    public function getOpeningDateTimeAttribute()
+    {
+        if ($this->start_time->year !== 1970) {
+            return $this->start_time;
+        }
+
+        return $this->start_time->setDateFrom($this->next_date);
+    }
+
+    public function getClosingDateTimeAttribute()
+    {
+        if ($this->end_time->year !== 1970) {
+            return $this->end_time;
+        }
+
+        return $this->end_time->setDateFrom($this->next_date);
+    }
+
+    public function getNextDateAttribute()
+    {
+        if ($this->date) {
+            return $this->date;
+        }
+
+        $date = Carbon::today();
+        if($date->dayOfWeek === $this->day_of_week) {
+            return $date;
+        }
+
+        return $date->next($this->day_of_week);
     }
 }
