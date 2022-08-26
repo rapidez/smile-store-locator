@@ -22,6 +22,8 @@ class Retailer extends Model
 
     protected $values;
 
+    protected $guarded = [];
+
     protected static function booted()
     {
         static::addGlobalScope('with-url-key', function (Builder $builder) {
@@ -171,5 +173,18 @@ class Retailer extends Model
         }
 
         return false;
+    }
+
+    public function getUpcomingOpeningTimeAttribute()
+    {
+        // When the retailer has an opening_time, then it will be opened later this day
+        if ($this->opening_time) {
+            return $this->opening_time->format('H:i');
+        }
+
+        $closestOpening = $this->times->sortBy('start_time')
+            ->firstWhere(fn ($time) => $time->start_time->isFuture());
+
+        return $closestOpening->start_time->isToday() ? $closestOpening->start_time->format('H:i') : $closestOpening->start_time->dayName;
     }
 }

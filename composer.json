@@ -23,6 +23,10 @@
         "illuminate/view": "^9.0",
         "rapidez/core": "~0.55"
     },
+    "require-dev": {
+        "orchestra/testbench": "^7.3",
+        "phpunit/phpunit": "^9.5.10"
+    },
     "autoload": {
         "psr-4": {
             "Rapidez\\SmileStoreLocator\\": "src"
@@ -36,6 +40,14 @@
             "providers": [
                 "Rapidez\\SmileStoreLocator\\SmileStoreLocatorServiceProvider"
             ]
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Rapidez\\SmileStoreLocator\\Tests\\": "tests"
         }
     }
 }
