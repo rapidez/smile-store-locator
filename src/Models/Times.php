@@ -3,10 +3,10 @@
 namespace Rapidez\SmileStoreLocator\Models;
 
 use Carbon\Carbon;
-use Rapidez\Core\Models\Model;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Schema;
+use Rapidez\Core\Models\Model;
 
 class Times extends Model
 {
@@ -43,21 +43,21 @@ class Times extends Model
         });
     }
 
-    public function startTime() : Attribute
+    public function startTime(): Attribute
     {
         return Attribute::make(
             get: [$this, 'addDateToTime']
         );
     }
 
-    public function endTime() : Attribute
+    public function endTime(): Attribute
     {
         return Attribute::make(
             get: [$this, 'addDateToTime']
         );
     }
 
-    protected function addDateToTime($value) 
+    protected function addDateToTime($value)
     {
         $value = Carbon::parse($value);
         if ($value->year !== 1970) {
@@ -74,7 +74,7 @@ class Times extends Model
         }
 
         $date = Carbon::today();
-        if($date->dayOfWeek === $this->day_of_week) {
+        if ($date->dayOfWeek === $this->day_of_week) {
             return $date;
         }
 
