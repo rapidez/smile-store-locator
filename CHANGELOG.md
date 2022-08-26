@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/org/repo/compare/0.8.0...master)
+## [Unreleased](https://github.com/org/repo/compare/0.9.0...master)
+
+## [0.9.0](https://github.com/org/repo/compare/0.8.0...0.9.0) - 2022-08-26
+
+### Changed
+
+- Get upcoming opening time with PHP (#12)
 
 ## [0.8.0](https://github.com/org/repo/compare/0.7.4...0.8.0) - 2022-07-07
 
