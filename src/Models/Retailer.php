@@ -182,9 +182,9 @@ class Retailer extends Model
             return $this->opening_time->format('H:i');
         }
 
-        $closestOpening = $this->times->sortBy('opening_date_time')
-            ->firstWhere(fn ($time) => $time->opening_date_time->isFuture());
+        $closestOpening = $this->times->sortBy('start_time')
+            ->firstWhere(fn ($time) => $time->start_time->isFuture());
 
-        return $closestOpening->opening_date_time->isToday() ? $closestOpening->opening_date_time->format('H:i') : $closestOpening->opening_date_time->dayName;
+        return $closestOpening->start_time->isToday() ? $closestOpening->start_time->format('H:i') : $closestOpening->start_time->dayName;
     }
 }
