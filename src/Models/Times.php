@@ -26,7 +26,7 @@ class Times extends Model
         'display_from_date',
         'display_to_date',
     ];
-    
+
     protected static function booted()
     {
         static::addGlobalScope('only-active-times', function (Builder $builder) {
