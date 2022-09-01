@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/org/repo/compare/0.9.0...master)
+## [Unreleased](https://github.com/org/repo/compare/0.9.1...master)
+
+## [0.9.1](https://github.com/org/repo/compare/0.9.0...0.9.1) - 2022-09-01
+
+### Fixed
+
+- Re-add times to the frontend.retailers (#13)
 
 ## [0.9.0](https://github.com/org/repo/compare/0.8.0...0.9.0) - 2022-08-26
 
