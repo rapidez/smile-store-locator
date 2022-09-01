@@ -22,6 +22,11 @@ class Times extends Model
 
     protected $fillable = [];
 
+    protected $hidden = [
+        'display_from_date',
+        'display_to_date',
+    ];
+
     protected static function booted()
     {
         static::addGlobalScope('only-active-times', function (Builder $builder) {
@@ -36,7 +41,6 @@ class Times extends Model
                     $query->whereNull('date')
                           ->orWhere('date', '>=', Carbon::now()->toDateString());
                 });
-                $builder->orderBy('date');
             }
 
             $builder->orderBy('date');
