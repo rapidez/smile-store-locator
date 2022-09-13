@@ -2,7 +2,6 @@
 
 namespace Rapidez\SmileStoreLocator\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -135,44 +134,32 @@ class Retailer extends Model
 
     public function getOpeningTimeAttribute()
     {
-        if ($specialOpeningHour = $this->times->first(function ($time) {
-            return $time->attribute_code == 'special_opening_hours' && $time->date->toDateString() == today()->toDateString();
-        })) {
-            $date = Carbon::parse($specialOpeningHour->start_time)->setDateFrom(today());
+        $times = $this->times->sortBy('start_time')->where(fn ($time) => $time->start_time->isToday());
 
-            return $date->isFuture() ? $date : false;
+        $openingHour = $times->firstWhere('attribute_code', 'special_opening_hours') ?? $times->firstWhere('attribute_code', 'opening_hours');
+
+        if (!$openingHour) {
+            return false;
         }
 
-        if ($openingHour = $this->times->first(function ($time) {
-            return $time->attribute_code == 'opening_hours' && $time->day_of_week == today()->dayOfWeek;
-        })) {
-            $date = Carbon::parse($openingHour->start_time)->setDateFrom(today());
+        $date = $openingHour->start_time;
 
-            return $date->isFuture() ? $date : false;
-        }
-
-        return false;
+        return $date->isFuture() ? $date : false;
     }
 
     public function getClosingTimeAttribute()
     {
-        if ($specialOpeningHour = $this->times->first(function ($time) {
-            return $time->attribute_code == 'special_opening_hours' && $time->date->toDateString() == today()->toDateString();
-        })) {
-            $date = Carbon::parse($specialOpeningHour->end_time)->setDateFrom(today());
+        $times = $this->times->sortBy('end_time')->where(fn ($time) => $time->end_time->isToday());
 
-            return $date->isFuture() ? $date : false;
+        $openingHour = $times->firstWhere('attribute_code', 'special_opening_hours') ?? $times->firstWhere('attribute_code', 'opening_hours');
+
+        if (!$openingHour) {
+            return false;
         }
 
-        if ($openingHour = $this->times->first(function ($time) {
-            return $time->attribute_code == 'opening_hours' && $time->day_of_week == today()->dayOfWeek;
-        })) {
-            $date = Carbon::parse($openingHour->end_time)->setDateFrom(today());
+        $date = $openingHour->end_time;
 
-            return $date->isFuture() ? $date : false;
-        }
-
-        return false;
+        return $date->isFuture() ? $date : false;
     }
 
     public function getUpcomingOpeningTimeAttribute()
