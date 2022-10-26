@@ -37,6 +37,18 @@ export default {
             this.map.$on('bounds_changed', window.debounce(this.onBoundsChanged, 50));
             this.map.$on('center_changed', window.debounce(this.onCenterChanged, 50));
         }
+
+        let todayWeekday = (new Date()).toLocaleDateString(undefined, { weekday:'long' })
+        this.retailers = this.retailers.map((retailer) => {
+            retailer.upcoming_opening = new Date(retailer.upcoming_opening)
+
+            retailer.upcoming_opening_day = retailer.upcoming_opening.toLocaleDateString(undefined, { weekday:'long' }) !== todayWeekday
+                ? retailer.upcoming_opening.toLocaleDateString(undefined, { weekday:'long' }) : false
+
+            retailer.upcoming_opening_time = retailer.upcoming_opening.toLocaleTimeString(undefined, { hour: '2-digit', minute:'2-digit' })
+
+            return retailer
+        })
     },
 
     methods: {

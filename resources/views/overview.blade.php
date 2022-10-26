@@ -51,11 +51,11 @@
                             <div v-else>
                                 <span class="text-red-600">@lang('Closed')</span>,
                                 <span class="text-gray-600">
-                                    <template v-if="retailer.upcoming_opening_time.includes(':')">
+                                    <template v-if="!selectedStore.upcoming_opening_day">
                                         @lang('open again on') @{{ retailer.upcoming_opening_time }}
                                     </template>
                                     <template v-else>
-                                        @lang('open at') @{{ retailer.upcoming_opening_time }}
+                                        @lang('open on') @{{ retailer.upcoming_opening_day }} @lang('at') @{{ retailer.upcoming_opening_time }}
                                     </template>
                                 </span>
                             </div>

@@ -28,7 +28,7 @@ class UpcomingOpeningTimeTest extends TestCase
                 ])
             );
 
-        $this->assertEquals(Carbon::now()->addHour(2)->format('H:i'), $retailer->upcoming_opening_time);
+        $this->assertEquals(Carbon::now()->addHour(2), $retailer->upcoming_opening);
     }
 
     public function testRetailerAlreadyOpenShowsNextOpeningDay()
@@ -60,7 +60,7 @@ class UpcomingOpeningTimeTest extends TestCase
                 ])
             );
 
-        $this->assertEquals(today()->addDay()->dayName, $retailer->upcoming_opening_time);
+        $this->assertEquals(Carbon::now()->subHour()->addDay(), $retailer->upcoming_opening);
     }
 
     public function testRetailerSpecialTimeOpeningLaterToday()
@@ -92,7 +92,7 @@ class UpcomingOpeningTimeTest extends TestCase
                 ])
             );
 
-        $this->assertEquals(Carbon::now()->addHour(2)->format('H:i'), $retailer->upcoming_opening_time);
+        $this->assertEquals(Carbon::now()->addHour(2), $retailer->upcoming_opening);
     }
 
     public function testRetailerSpecialTimeOpeningWithRegularOpeningTimeEarlier()
@@ -124,7 +124,7 @@ class UpcomingOpeningTimeTest extends TestCase
                 ])
             );
 
-        $this->assertEquals(Carbon::now()->addHour(2)->format('H:i'), $retailer->upcoming_opening_time);
+        $this->assertEquals(Carbon::now()->addHour(2), $retailer->upcoming_opening);
     }
 
     public function testRetailerClosedAndOpeningNextDay()
@@ -156,6 +156,6 @@ class UpcomingOpeningTimeTest extends TestCase
                 ])
             );
 
-        $this->assertEquals(today()->addDay()->dayName, $retailer->upcoming_opening_time);
+        $this->assertEquals(Carbon::now()->setTime(9, 0)->addDay(), $retailer->upcoming_opening);
     }
 }
