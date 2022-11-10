@@ -1,6 +1,14 @@
 # Changelog
 
-## [Unreleased](https://github.com/org/repo/compare/0.9.1...master)
+## [Unreleased](https://github.com/org/repo/compare/0.10.0...master)
+
+## [0.10.0](https://github.com/org/repo/compare/0.9.1...0.10.0) - 2022-11-10
+
+### Changed
+
+- Refactor opening and closing time attribute for readability (#14)
+- Return full date for upcoming opening times (#15)
+- Use import instead of require (#16)
 
 ## [0.9.1](https://github.com/org/repo/compare/0.9.0...0.9.1) - 2022-09-01
 
