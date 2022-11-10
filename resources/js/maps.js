@@ -8,4 +8,4 @@ Vue.use(GmapVue, {
     installComponents: true
 })
 
-Vue.component('gmap', require('./components/Gmap.vue').default)
+Vue.component('gmap', () => import('./components/Gmap.vue'))
