@@ -1,6 +1,4 @@
 <script>
-import { gmapApi } from 'gmap-vue'
-
 export default {
     render() {
         return this.$scopedSlots.default({
