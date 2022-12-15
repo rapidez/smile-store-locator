@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/org/repo/compare/0.10.0...master)
+## [Unreleased](https://github.com/org/repo/compare/0.10.1...master)
+
+## [0.10.1](https://github.com/org/repo/compare/0.10.0...0.10.1) - 2022-12-15
+
+### Fixed
+
+- Removed unused import (22186b0)
 
 ## [0.10.0](https://github.com/org/repo/compare/0.9.1...0.10.0) - 2022-11-10
 
