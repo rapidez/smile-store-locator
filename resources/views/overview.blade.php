@@ -13,7 +13,7 @@
             <div class="md:flex md:space-x-5">
                 <div class="md:w-1/3">
                     <gmap-autocomplete v-on:place_changed="zoomToPlace" :select-first-on-enter="true" class="block mb-1">
-                        <template v-slot:input="slotProps">
+                        <template v-slot:default="slotProps">
                             <x-rapidez::input
                                 name="search"
                                 :label="false"
