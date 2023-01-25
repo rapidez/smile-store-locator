@@ -1,5 +1,5 @@
 {
   "devDependencies": {
-    "gmap-vue": "^1.5.0"
+    "gmap-vue": "^3.5.4"
   }
 }
