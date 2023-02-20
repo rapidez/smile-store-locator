@@ -13,17 +13,17 @@ It's also possible to use the original module but in that case you need to remov
 
 ## Installation
 
-```
+```bash
 yarn add gmap-vue -D
 ```
 
-```
+```bash
 composer require rapidez/smile-store-locator
 ```
 
-Add to your `resources/js/app.js`
-```
-require('Vendor/rapidez/smile-store-locator/resources/js/maps.js');
+Make sure this exists in your `app.js`:
+```js
+import.meta.glob(['Vendor/rapidez/*/resources/js/app.js'], { eager: true });
 ```
 
 After that go to the configured url, default: `/stores`
@@ -31,7 +31,7 @@ After that go to the configured url, default: `/stores`
 ## Views
 
 If you need to change the views you can publish them with:
-```
+```bash
 php artisan vendor:publish --provider="Rapidez\SmileStoreLocator\SmileStoreLocatorServiceProvider" --tag=views
 ```
 

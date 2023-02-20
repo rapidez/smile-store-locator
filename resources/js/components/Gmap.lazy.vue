@@ -1,4 +1,14 @@
 <script>
+import * as GmapVue from 'gmap-vue'
+
+Vue.use(GmapVue, {
+    load: {
+        key: config.maps.key,
+        libraries: config.maps.libraries,
+    },
+    installComponents: true
+})
+
 export default {
     render() {
         return this.$scopedSlots.default({
