@@ -1,12 +1,17 @@
 <script>
-import * as GmapVue from 'gmap-vue'
+import GmapVue from 'gmap-vue'
+import { components } from 'gmap-vue'
+
+Vue.component('GmapAutocomplete', components.Autocomplete)
+Vue.component('GmapMap', components.MapLayer)
+Vue.component('GmapMarker', components.Marker)
 
 Vue.use(GmapVue, {
     load: {
         key: config.maps.key,
         libraries: config.maps.libraries,
     },
-    installComponents: true
+    installComponents: false
 })
 
 export default {
