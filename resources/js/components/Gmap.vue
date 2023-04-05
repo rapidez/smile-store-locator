@@ -1,4 +1,5 @@
 <script>
+import { useThrottleFn } from '@vueuse/core'
 import GmapVue from 'gmap-vue'
 import { components } from 'gmap-vue'
 
@@ -47,8 +48,8 @@ export default {
                 map.fitBounds(bounds)
             })
 
-            this.map.$on('bounds_changed', window.debounce(this.onBoundsChanged, 50));
-            this.map.$on('center_changed', window.debounce(this.onCenterChanged, 50));
+            this.map.$on('bounds_changed', useThrottleFn(this.onBoundsChanged, 100));
+            this.map.$on('center_changed', useThrottleFn(this.onCenterChanged, 100));
         }
 
         let todayWeekday = (new Date()).toLocaleDateString(undefined, { weekday:'long' })
@@ -95,19 +96,19 @@ export default {
             this.sortRetailers(center)
         },
 
-        calculateDistance(lat1, lng1, lat2, lng2) {
-            lat1 = this.convertToRadians(lat1);
-            lng1 = this.convertToRadians(lng1);
-            lat2 = this.convertToRadians(lat2);
-            lng2 = this.convertToRadians(lng2);
+        calculateDistance(latitude1, longitude1, latitude2, longitude2) {
+            latitude1 = this.convertToRadians(latitude1);
+            longitude1 = this.convertToRadians(longitude1);
+            latitude2 = this.convertToRadians(latitude2);
+            longitude2 = this.convertToRadians(longitude2);
 
-            let lngDiff = lng2 - lng1;
-            let latDiff = lat2 - lat1;
+            let longitudeDiff = longitude2 - longitude1;
+            let latitudeDiff = latitude2 - latitude1;
 
             // Calculate the distance in Radians.
             let distance = 2 * Math.asin(
                 Math.sqrt(
-                        Math.pow(Math.sin(latDiff / 2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(lngDiff / 2),2)
+                        Math.pow(Math.sin(latitudeDiff / 2), 2) + Math.cos(latitude1) * Math.cos(latitude2) * Math.pow(Math.sin(longitudeDiff / 2),2)
                     )
                 );
 
@@ -124,11 +125,11 @@ export default {
 
         sortRetailers: function (center) {
             center = center ?? this.map.$mapObject.center
-            let maplat = center.lat();
-            let maplng = center.lng();
-            if (!maplat || !maplng) return;
+            let mapLatitude = center.lat();
+            let mapLongitude = center.lng();
+            if (!mapLatitude || !mapLongitude) return;
 
-            this.retailers = this.retailers.sort((retailer1, retailer2) => this.calculateDistance(maplat, maplng, retailer1.latitude, retailer1.longitude) - this.calculateDistance(maplat, maplng, retailer2.latitude, retailer2.longitude));
+            this.retailers = this.retailers.sort((retailer1, retailer2) => this.calculateDistance(mapLatitude, mapLongitude, retailer1.latitude, retailer1.longitude) - this.calculateDistance(mapLatitude, mapLongitude, retailer2.latitude, retailer2.longitude));
         },
 
         selectLocation(id) {
