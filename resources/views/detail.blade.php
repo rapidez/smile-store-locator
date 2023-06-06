@@ -11,9 +11,9 @@
 
         <div class="sm:flex sm:space-x-5">
             <div class="sm:w-1/3">
-                <x-rapidez::button class="flex items-center mb-5" variant="outline" :href="route('smilestorelocator.overview')">
+                <x-rapidez::button.primary class="flex items-center mb-5" variant="outline" :href="route('smilestorelocator.overview')">
                     <x-heroicon-s-chevron-left class="h-4 w-4"/> @lang('All stores')
-                </x-rapidez::button>
+                </x-rapidez::button.primary>
 
                 <div class="border rounded bg-gray-50 p-5 mb-5">
                     <strong>{{ $retailer->city }}</strong><br>
