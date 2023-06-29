@@ -83,7 +83,7 @@
                             </div>
                         </div>
                         <a
-                            :href="'{{ Rapidez::config('store_locator/seo/base_url', 'stores') }}/' + selectedLocation.url_key"
+                            :href="'{{ route('smilestorelocator.detail', ':seller') }}'.replace(':seller', selectedLocation.url_key)"
                             class="flex items-center font-bold underline"
                         >
                             @lang('Show store')
