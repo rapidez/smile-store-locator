@@ -15,13 +15,13 @@ Route::prefix(Rapidez::config('store_locator/seo/base_url', 'stores'))->group(fu
             array_slice(range(0, 6), today()->dayOfWeek),
             array_slice(range(0, 6), 0, today()->dayOfWeek)
         )]);
-    
+
         return view('smilestorelocator::overview');
     })->name('smilestorelocator.overview');
-    
+
     Route::get('/{seller}', function ($seller) {
         $retailer = Retailer::having('url_key', $seller)->firstOrFail();
-    
+
         return view('smilestorelocator::detail', compact('retailer'));
     })->name('smilestorelocator.detail');
 });
