@@ -29,7 +29,7 @@
                     </gmap-autocomplete>
 
                     <a href="#" v-on:click.prevent="currentLocation" class="flex items-center text-primary mb-5 hover:underline">
-                        <x-heroicon-s-location-marker class="h-4 w-4 mr-1"/>
+                        <x-heroicon-s-map-pin class="h-4 w-4 mr-1"/>
                         @lang('Use my location')
                     </a>
 
