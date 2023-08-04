@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/smile-store-locator/compare/0.12.1...master)
+[Unreleased changes](https://github.com/rapidez/smile-store-locator/compare/0.13.0...master)
+## [0.13.0](https://github.com/rapidez/smile-store-locator/releases/tag/0.13.0) - 2023-08-04
+
+### Changed
+
+- Heroicons v2 update (#24)
+
 ## [0.12.1](https://github.com/rapidez/smile-store-locator/releases/tag/0.12.1) - 2023-07-04
 
 ### Fixed
