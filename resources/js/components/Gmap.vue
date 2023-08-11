@@ -1,7 +1,6 @@
 <script>
 import { useThrottleFn } from '@vueuse/core'
-import GmapVue from 'gmap-vue'
-import { components } from 'gmap-vue'
+import GmapVue, {components} from 'gmap-vue'
 
 Vue.component('GmapAutocomplete', components.Autocomplete)
 Vue.component('GmapMap', components.MapLayer)
@@ -152,6 +151,14 @@ export default {
             this.selectedLocation = null
 
             this.onBoundsChanged(this.map.$mapObject.getBounds())
+            this.setRetailersDistance(place)
+        },
+        setRetailersDistance(place) {
+            this.retailers.forEach((retailer, index) => {
+                const lat = typeof place.geometry?.location?.lat === 'function' ? place.geometry.location.lat() : place.geometry?.location?.lat
+                const lng = typeof place.geometry?.location?.lng === 'function' ? place.geometry.location.lng() : place.geometry?.location?.lng
+                this.retailers[index].distance = lat && lng ? this.calculateDistance(lat, lng, retailer.latitude, retailer.longitude) : null
+            })
         }
     },
 
