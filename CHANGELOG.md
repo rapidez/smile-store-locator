@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/smile-store-locator/compare/0.13.0...master)
+[Unreleased changes](https://github.com/rapidez/smile-store-locator/compare/0.14.0...master)
+## [0.14.0](https://github.com/rapidez/smile-store-locator/releases/tag/0.14.0) - 2023-08-29
+
+### Added
+
+- Retailer distance (#25)
+
 ## [0.13.0](https://github.com/rapidez/smile-store-locator/releases/tag/0.13.0) - 2023-08-04
 
 ### Changed
