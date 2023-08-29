@@ -42,7 +42,12 @@
                         }"
                         v-on:click.prevent="selectLocation(retailer.address_id)"
                     >
-                        <div>@{{ retailer.street }} - @{{ retailer.city }}</div>
+                        <div>
+                            @{{ retailer.street }} - @{{ retailer.city }}
+                            <span v-if="retailer.distance" class="text-sm">
+                                (@{{ retailer.distance?.toFixed(1).replace('.', ',') }} km)
+                            </span>
+                        </div>
                         <div class="text-sm">
                             <div v-if="!retailer.opening_time && retailer.closing_time">
                                 <span class="text-green-600">@lang('Open')</span>,
