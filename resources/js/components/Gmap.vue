@@ -65,18 +65,19 @@ export default {
     },
 
     methods: {
-        currentLocation() {
+        async currentLocation() {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    this.zoomToPlace({
-                        geometry: {
-                            location: {
-                                lat: position.coords.latitude,
-                                lng: position.coords.longitude,
-                            }
+                const position = await new Promise((resolve, reject) => {
+                    navigator.geolocation.getCurrentPosition(resolve, reject)
+                })
+                this.zoomToPlace({
+                    geometry: {
+                        location: {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude,
                         }
-                    })
-                });
+                    }
+                })
             } else {
                alert('Your browser does not support geolocation.')
             }
