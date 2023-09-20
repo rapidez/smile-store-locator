@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/smile-store-locator/compare/0.15.0...master)
+[Unreleased changes](https://github.com/rapidez/smile-store-locator/compare/0.15.1...master)
+## [0.15.1](https://github.com/rapidez/smile-store-locator/releases/tag/0.15.1) - 2023-09-20
+
+### Changed
+
+- Prevent error if bounds are unavailable (#27)
+
 ## [0.15.0](https://github.com/rapidez/smile-store-locator/releases/tag/0.15.0) - 2023-09-19
 
 ### Changed
