@@ -86,7 +86,7 @@ export default {
         onBoundsChanged(bounds) {
             this.visibleLocations = []
             this.retailers.forEach(retailer => {
-                if (bounds.contains({ lat: retailer.latitude, lng: retailer.longitude })) {
+                if (bounds?.contains({ lat: retailer.latitude, lng: retailer.longitude })) {
                     this.visibleLocations.push(retailer.address_id)
                 }
             })
@@ -142,7 +142,7 @@ export default {
             this.map.fitBounds(bounds)
             this.map.$mapObject.setZoom(15)
 
-            this.onBoundsChanged(this.map.$mapObject.getBounds())
+            this.onBoundsChanged(this.map.$mapObject.getBounds() || bounds)
         },
 
         zoomToPlace(place) {
@@ -151,7 +151,9 @@ export default {
 
             this.selectedLocation = null
 
-            this.onBoundsChanged(this.map.$mapObject.getBounds())
+            this.onBoundsChanged(
+                this.map.$mapObject.getBounds() || new google.maps.LatLngBounds().extend(place.geometry.location)
+            )
             this.setRetailersDistance(place)
         },
         setRetailersDistance(place) {
