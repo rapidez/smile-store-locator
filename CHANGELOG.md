@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/smile-store-locator/compare/0.16.0...master)
+[Unreleased changes](https://github.com/rapidez/smile-store-locator/compare/0.17.0...master)
+## [0.17.0](https://github.com/rapidez/smile-store-locator/releases/tag/0.17.0) - 2024-03-21
+
+### Added
+
+- Rapidez v2 support (#29)
+
 ## [0.16.0](https://github.com/rapidez/smile-store-locator/releases/tag/0.16.0) - 2023-10-31
 
 ### Added
