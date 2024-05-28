@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/smile-store-locator/compare/0.17.0...master)
+[Unreleased changes](https://github.com/rapidez/smile-store-locator/compare/2.0.0...master)
+## [2.0.0](https://github.com/rapidez/smile-store-locator/releases/tag/2.0.0) - 2024-05-28
+
+### Added
+
+- Laravel 11 support (#30)
+
 ## [0.17.0](https://github.com/rapidez/smile-store-locator/releases/tag/0.17.0) - 2024-03-21
 
 ### Added
