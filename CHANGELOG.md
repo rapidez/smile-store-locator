@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/smile-store-locator/compare/2.0.0...master)
+[Unreleased changes](https://github.com/rapidez/smile-store-locator/compare/2.0.1...master)
+## [2.0.1](https://github.com/rapidez/smile-store-locator/releases/tag/2.0.1) - 2024-06-10
+
+### Fixed
+- Fix broken packages:discover without database (#31)
+
+
 ## [2.0.0](https://github.com/rapidez/smile-store-locator/releases/tag/2.0.0) - 2024-05-28
 
 ### Added
