@@ -24,6 +24,7 @@ class SmileStoreLocatorServiceProvider extends ServiceProvider
                 'libraries' => Rapidez::config('smile_map/map/provider_google_libraries'),
                 'icon'      => config('rapidez.media_url').'/smile_map/marker/'.Rapidez::config('smile_map/map/provider_all_markerIcon'),
             ]]);
-        } catch(QueryException $e) {}
+        } catch(QueryException $e) {
+        }
     }
 }

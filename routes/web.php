@@ -1,8 +1,8 @@
 <?php
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Route;
 use Rapidez\Core\Facades\Rapidez;
 use Rapidez\SmileStoreLocator\Models\Retailer;
 
