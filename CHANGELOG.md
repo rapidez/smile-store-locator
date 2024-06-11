@@ -4,6 +4,7 @@
 ## [2.0.1](https://github.com/rapidez/smile-store-locator/releases/tag/2.0.1) - 2024-06-10
 
 ### Fixed
+
 - Fix broken packages:discover without database (#31)
 
 
