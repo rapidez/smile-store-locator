@@ -10,7 +10,7 @@ class SmileStoreLocatorServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/smile-store-locator.php', 'smile-store-locator');
+        $this->mergeConfigFrom(__DIR__.'/../config/smile-store-locator.php', 'smile-store-locator');
     }
 
     public function boot()
@@ -20,7 +20,7 @@ class SmileStoreLocatorServiceProvider extends ServiceProvider
         }
 
         $this->publishes([
-            __DIR__ . '/../config/smile-store-locator.php' => config_path('smile-store-locator.php'),
+            __DIR__.'/../config/smile-store-locator.php' => config_path('smile-store-locator.php'),
         ], 'config');
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'smilestorelocator');
