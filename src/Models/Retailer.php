@@ -3,6 +3,7 @@
 namespace Rapidez\SmileStoreLocator\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Rapidez\Core\Models\Model;
@@ -173,5 +174,10 @@ class Retailer extends Model
             ->firstWhere(fn ($time) => $time->start_time->isFuture());
 
         return $closestOpening->start_time;
+    }
+
+    public function seller(): BelongsTo
+    {
+        return $this->belongsTo(Seller::class, 'retailer_id');
     }
 }

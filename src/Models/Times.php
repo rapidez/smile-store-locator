@@ -3,6 +3,7 @@
 namespace Rapidez\SmileStoreLocator\Models;
 
 use Carbon\Carbon;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Schema;
@@ -83,5 +84,10 @@ class Times extends Model
         }
 
         return $date->next($this->day_of_week);
+    }
+
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
     }
 }
