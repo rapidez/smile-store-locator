@@ -8,9 +8,20 @@ use Rapidez\Core\Facades\Rapidez;
 
 class SmileStoreLocatorServiceProvider extends ServiceProvider
 {
+    public function register()
+    {
+        $this->mergeConfigFrom(__DIR__ . '/../config/smile-store-locator.php', 'smile-store-locator');
+    }
+
     public function boot()
     {
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        if (config('smile-store-locator.routes')) {
+            $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        }
+
+        $this->publishes([
+            __DIR__ . '/../config/smile-store-locator.php' => config_path('smile-store-locator.php'),
+        ], 'config');
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'smilestorelocator');
 
