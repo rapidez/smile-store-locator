@@ -18,6 +18,7 @@ class SmileStoreLocatorServiceProvider extends ServiceProvider
         if (config('smile-store-locator.routes')) {
             $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         }
+        
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'smilestorelocator');
 
         $this->publishes([
