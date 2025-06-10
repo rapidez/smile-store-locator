@@ -1,6 +1,18 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/smile-store-locator/compare/2.0.1...master)
+[Unreleased changes](https://github.com/rapidez/smile-store-locator/compare/4.0.0...4.0.0)
+## [4.0.0](https://github.com/rapidez/smile-store-locator/releases/tag/4.0.0) - 2025-06-10
+
+### Added
+
+- Rapidez v4 support + opening time edge case fix (#34)
+
+## [2.1.0](https://github.com/rapidez/smile-store-locator/releases/tag/2.1.0) - 2024-07-24
+
+### Added
+
+- Register routes config (#32)
+
 ## [2.0.1](https://github.com/rapidez/smile-store-locator/releases/tag/2.0.1) - 2024-06-10
 
 ### Fixed
@@ -141,12 +153,6 @@
 ### Fixed
 
 - Just a version bump as there where some issues with 0.6.5
-
-## [0.6.5](https://github.com/rapidez/smile-store-locator/releases/tag/0.6.5) - 2022-06-07
-
-### Fixed
-
-- Wait for maps to be loaded, useful for lazy loading (9fe73cd)
 
 ## [0.6.4](https://github.com/rapidez/smile-store-locator/releases/tag/0.6.4) - 2022-05-20
 
