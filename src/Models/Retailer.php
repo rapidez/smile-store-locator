@@ -170,8 +170,8 @@ class Retailer extends Model
         }
 
         $closestOpening = $this->times->sortBy('start_time')
-            ->firstWhere(fn ($time) => $time->start_time->isFuture());
+            ->firstWhere(fn ($time) => !$time->start_time->isToday() && $time->start_time->isFuture());
 
-        return $closestOpening->start_time;
+        return $closestOpening?->start_time;
     }
 }
