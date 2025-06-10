@@ -198,6 +198,6 @@ class UpcomingOpeningTimeTest extends TestCase
                 ])
             );
 
-        $this->assertEquals(Carbon::now()->addDay()->setTime(16,0,0), $retailer->upcoming_opening);
+        $this->assertEquals(Carbon::now()->addDay()->setTime(16, 0, 0), $retailer->upcoming_opening);
     }
 }
