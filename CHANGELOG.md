@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/smile-store-locator/compare/4.0.0...4.0.0)
+[Unreleased changes](https://github.com/rapidez/smile-store-locator/compare/4.0.1...4.0.1)
+## [4.0.1](https://github.com/rapidez/smile-store-locator/releases/tag/4.0.1) - 2025-06-24
+
+### Fixed
+
+- Use web route middleware (#35)
+
 ## [4.0.0](https://github.com/rapidez/smile-store-locator/releases/tag/4.0.0) - 2025-06-10
 
 ### Added
