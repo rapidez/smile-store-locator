@@ -12,7 +12,7 @@ try {
     $url = 'stores';
 }
 
-Route::prefix($url)->group(function () {
+Route::middleware('web')->prefix($url)->group(function () {
     Route::get('', function () {
         config(['frontend.retailers' => Retailer::with('times')->get()->append(['opening_time', 'closing_time', 'upcoming_opening'])]);
         config(['frontend.day_names' => collect(Carbon::getDays())->map(function ($day, $index) {
