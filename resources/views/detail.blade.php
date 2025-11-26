@@ -1,7 +1,7 @@
 @extends('rapidez::layouts.app')
 
-@section('title', $retailer->values->meta_title)
-@section('description', $retailer->values->meta_description)
+@section('title', $retailer->values?->meta_title ?? $retailer->values->name)
+@section('description', $retailer->values?->meta_description ?? null)
 
 @section('content')
     <div class="container mx-auto mb-5 px-3 sm:px-0">
@@ -19,7 +19,7 @@
                     <strong>{{ $retailer->city }}</strong><br>
                     {{ $retailer->street }}<br>
                     {{ $retailer->postcode }}<br>
-                    {{ $retailer->values->contact_phone }}<br>
+                    {{ $retailer->values?->contact_phone ?? null }}<br>
                     <br>
                     @php
                         $startTime = $retailer->opening_time;
@@ -55,7 +55,7 @@
                 @if($retailer->street_view)
                     <iframe src="{{ $retailer->street_view }}" frameborder="0" width="100%" height="450"></iframe>
                 @endif
-                @if($retailer->values->description)
+                @if($retailer->values?->description ?? false)
                     <div class="prose prose-green max-w-none mt-5">
                         {!! $retailer->values->description !!}
                     </div>

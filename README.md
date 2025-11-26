@@ -14,7 +14,7 @@ It's also possible to use the original module but in that case you need to remov
 ## Installation
 
 ```bash
-yarn add gmap-vue -D
+yarn add @gmap-vue/v3 -D
 ```
 
 ```bash
