@@ -1,22 +1,10 @@
 <script>
 import { useThrottleFn } from '@vueuse/core'
-import GmapVue, {components} from 'gmap-vue'
-
-Vue.component('GmapAutocomplete', components.Autocomplete)
-Vue.component('GmapMap', components.MapLayer)
-Vue.component('GmapMarker', components.Marker)
-
-Vue.use(GmapVue, {
-    load: {
-        key: config.maps.key,
-        libraries: config.maps.libraries,
-    },
-    installComponents: false
-})
+import { useGoogleMapsApiPromiseLazy } from '@gmap-vue/v3/composables';
 
 export default {
     render() {
-        return this.$scopedSlots.default({
+        return this.$slots.default({
             zoomToPlace: this.zoomToPlace,
             selectLocation: this.selectLocation,
             currentLocation: this.currentLocation,
@@ -33,7 +21,7 @@ export default {
     }),
 
     async mounted() {
-        await this.$gmapApiPromiseLazy()
+        await useGoogleMapsApiPromiseLazy()
 
         if (this.map) {
             this.map.$mapPromise.then((map) => {
@@ -167,7 +155,8 @@ export default {
 
     computed: {
         map: function () {
-            return this.$scopedSlots.default()[0].context.$refs.map
+            // TODO: This is currently broken.
+            return this.$slots.default()[0].ctx.$refs.map
         }
     }
 }
